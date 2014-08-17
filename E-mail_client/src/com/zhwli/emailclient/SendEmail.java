@@ -1,3 +1,5 @@
+package com.zhwli.emailclient;
+
 import java.io.*;
 import java.net.*;
 import sun.misc.*;

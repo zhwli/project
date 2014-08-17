@@ -1,3 +1,5 @@
+package com.zhwli.emailclient;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,22 +17,22 @@ import sun.misc.BASE64Encoder;
 
 public class Menu extends JFrame implements ActionListener,Runnable{
 	Thread OK;
-	//ä¸‹-æ¥åˆ°å‘é€é‚®ä»¶ç•Œé¢ã€æ¥æ”¶é‚®ä»¶ç•Œé¢
+	//ÏÂ-½Óµ½·¢ËÍÓÊ¼ş½çÃæ¡¢½ÓÊÕÓÊ¼ş½çÃæ
 	SendEmailView sendView=new SendEmailView(this);
 	ReceiveEmailView receiveView=new ReceiveEmailView(this,sendView);
-	//ä¸‹-æ¥åˆ°å‘é€é‚®ä»¶ç•Œé¢
+	//ÏÂ-½Óµ½·¢ËÍÓÊ¼ş½çÃæ
 //	SendEmail sendEmail=new SendEmail(sendView);
 	
 	
-	PrintWriter output;//éªŒè¯-socketè¾“å‡º
-	BufferedReader input;//è¾“å…¥
+	PrintWriter output;//ÑéÖ¤-socketÊä³ö
+	BufferedReader input;//ÊäÈë
 	Socket socket = null;
 	
-	//row1ç›®å½•æ¡ç•Œé¢
+	//row1Ä¿Â¼Ìõ½çÃæ
 	JPanel row1=new JPanel();
 	JButton send=new JButton("Send E-mail");
 	JButton receive=new JButton("Receive E-mail");
-	//row2é‚®ç®±æœåŠ¡å™¨è®¾ç½®
+	//row2ÓÊÏä·şÎñÆ÷ÉèÖÃ
 	JPanel row2=new JPanel();
 	JLabel mailServer=new JLabel("MailServer:");
 	JComboBox server=new JComboBox();
@@ -39,12 +41,12 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 	JLabel pop3Port=new JLabel("Pop3 Port:");
 	JTextField pop3=new JTextField("110",5);
 	JButton OK1=new JButton("ServerOK");
-	//row3è¾“å…¥ç”¨æˆ·åå’Œå¯†ç 
+	//row3ÊäÈëÓÃ»§ÃûºÍÃÜÂë
 	JPanel row3=new JPanel();
 	JLabel userName=new JLabel("Username:");
 	JTextField user=new JTextField("appiaaai@163.com",35);	
 	JLabel password=new JLabel("Password:");
-	JPasswordField psw=new JPasswordField("è¯·è¾“å…¥å¯†ç ",35);
+	JPasswordField psw=new JPasswordField("ÇëÊäÈëÃÜÂë",35);
 	JButton OK2=new JButton("UserOK");
 	JButton clear=new JButton("Clear");
 	
@@ -55,26 +57,26 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		setSize(500,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//æ•´ä½“å¸ƒå±€
+		//ÕûÌå²¼¾Ö
 		GridLayout mainLayout=new GridLayout(5,1,10,0);
 		setLayout(mainLayout);
 		
-		//å¯¹sendã€ receiveé”®æ·»åŠ ç›‘å¬ï¼Œè½¬åˆ°å‘é€é‚®ä»¶é¡µé¢
+		//¶Ôsend¡¢ receive¼üÌí¼Ó¼àÌı£¬×ªµ½·¢ËÍÓÊ¼şÒ³Ãæ
 		send.addActionListener(sendView);
 		receive.addActionListener(receiveView);
-		//å¯¹OK1ã€OK2ã€clearæ·»åŠ ç›‘å¬
+		//¶ÔOK1¡¢OK2¡¢clearÌí¼Ó¼àÌı
 		OK1.addActionListener(this);
 		OK2.addActionListener(this);
 		clear.addActionListener(this);
 		
-		//row1æ”¶å‘é‚®ä»¶æŒ‰é’®
+		//row1ÊÕ·¢ÓÊ¼ş°´Å¥
 		FlowLayout layout1=new FlowLayout(FlowLayout.CENTER,10,10);
 		row1.setLayout(layout1);
 		row1.add(send);
 		row1.add(receive);
 		add(row1);
 		
-		//row2é€‰æ‹©é‚®ä»¶æœåŠ¡å™¨
+		//row2Ñ¡ÔñÓÊ¼ş·şÎñÆ÷
 		FlowLayout layout2=new FlowLayout();
 		row2.setLayout(layout2);
 		row2.add(mailServer);
@@ -91,7 +93,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		row2.add(OK1);
 		add(row2);
 		
-		//row3è¾“å…¥é‚®ç®±è´¦å·ã€å¯†ç 
+		//row3ÊäÈëÓÊÏäÕËºÅ¡¢ÃÜÂë
 		FlowLayout laypout3=new FlowLayout();
 		row3.setLayout(laypout3);
 		row3.add(userName);
@@ -108,7 +110,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		setVisible(true);
 	}
 	
-	//ç¡®è®¤çº¿ç¨‹
+	//È·ÈÏÏß³Ì
 	public void actionPerformed(ActionEvent event){
 		String command=event.getActionCommand();
 		if(command.equals("ServerOK")){
@@ -122,7 +124,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		}
 	}
 	
-	void serverOK(){//éªŒè¯æœåŠ¡å™¨é…ç½®
+	void serverOK(){//ÑéÖ¤·şÎñÆ÷ÅäÖÃ
 		try {
 			Integer smtpPort = Integer.valueOf(smtp.getText());
 			socket = new Socket("smtp."+server.getSelectedItem().toString(), smtpPort);
@@ -143,7 +145,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		}
 	}
 	
-	void userOK(){//éªŒè¯è´¦æˆ·å¯†ç 
+	void userOK(){//ÑéÖ¤ÕË»§ÃÜÂë
 		try {
 			Integer smtpPort = Integer.valueOf(smtp.getText());
 			socket = new Socket("smtp."+server.getSelectedItem().toString(), smtpPort);
@@ -152,7 +154,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 			input = new BufferedReader(new InputStreamReader(socket
 					.getInputStream()));
 			System.out.println(input.readLine());
-			output.println("HELO "+server.getSelectedItem().toString());//éªŒè¯æ¡æ‰‹
+			output.println("HELO "+server.getSelectedItem().toString());//ÑéÖ¤ÎÕÊÖ
 			output.flush();
 			System.out.println(input.readLine());
 			output.println("AUTH LOGIN");
@@ -177,7 +179,7 @@ public class Menu extends JFrame implements ActionListener,Runnable{
 		}
 	}
 	
-	void clear(){//æ¸…ç©ºç”¨æˆ·åå¯†ç 
+	void clear(){//Çå¿ÕÓÃ»§ÃûÃÜÂë
 		user.setText(null);
 		psw.setText(null);
 	}

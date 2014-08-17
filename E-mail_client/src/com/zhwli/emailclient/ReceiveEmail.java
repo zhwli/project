@@ -1,3 +1,5 @@
+package com.zhwli.emailclient;
+
 import java.io.*;
 import java.net.Socket;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
